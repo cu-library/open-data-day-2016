@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Open Data + Open Source: Mapping Electoral Districts &amp; MP Voting Records</title>
+
+		<meta name="description" content="Project to map MP voting records using open data and open source software. Created for the Ottawa Open Data Book Club.">
+		<meta name="author" content="Rebecca Bartlett, Jennifer Whitney">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- 1 -->
+				<section>
+					<h2>Open Data + Open Source:</h1>
+					<h3>Mapping electoral districts &amp;<br/>MP voting records</h3>
+					<p>Open Access Week 2015, <a href="http://library.carleton.ca/">Carleton University Library</a></p>
+				</section>
+
+				<!-- 2 -->
+				<section>
+					<h3>Rebecca Bartlett</h3>
+					<p><small>GIS &amp; Digital Resources Librarian / <a href="http://twitter.com/bec_bart">@bec_bart</a></small></p>
+					<h3>Jen Whitney</h3>
+					<p><small>Systems Librarian, Integration &amp; Emerging Technologies / <a href="http://twitter.com/toastncheez">@toastncheez</a></small></p>
+				</section>
+
+				<!-- 3 -->
+				<section>
+					<h2>Open Data Book Club</h2>
+					<p>Monthly meetup hosted by <a href="http://www.meetup.com/Open-Data-Ottawa/">Open Data Ottawa</a> / <a href="http://twitter.com/opendataottawa">@OpenDataOttawa</a></p>
+					<p>Open data enthusiasts get together to explore datasets and tools for mining, analyzing, visualizing data</p>
+					<p>Our goals? Learn about open data, explore Leaflet, provide technical support</p>
+				</section>
+
+				<!-- 4 -->
+				<section>
+					<h2>Parliamentary Data</h2>
+					<h3><a href="http://openparliament.ca/">OpenParliament.ca</a></h3>
+			 		<p><small>Not an official government site ("not even sort of")</small></p>
+					<p>Aggregates data from <a href="http://parl.gc.ca">Parliament of Canada</a> pages</p>
+					<p><small><a href="http://www.parl.gc.ca/parlinfo/default.aspx?Language=E">PARLINFO</a>, <a href="http://parl.gc.ca/HouseChamberBusiness/ChamberSittings.aspx">Hansard</a>, <a href="http://www.parl.gc.ca/LEGISINFO/">LegisINFO</a></small></p>
+					<p>For developers: a <a href="https://api.openparliament.ca/api/">JSON API</a>, bulk <a href="https://openparliament.ca/data-download/">data download</a>
+				</section>
+
+				<!-- 5 -->
+				<section>
+					<h2>GIS Data</h2>
+					<h3><a href="https://www.nrcan.gc.ca/earth-sciences/geography/topographic-information/free-data-geogratis/11042">GeoGratis.ca</a></h3>
+					<p>"Find free maps, data, and publications to use without restriction" from Natural Resources Canada</p>
+					<p><small>Dataset used: <a href="http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/6d1d8f90-1c25-5fd0-880d-138d27c8cb57.html">Federal Electoral Districts 2011</a></small></p>
+					<p><small>Electoral district shapefile also available from <a href="http://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm">Statistics Canada</a> but GeoGratis specifically cites <a href="http://open.canada.ca/en/open-government-licence-canada">Open Government License - Canada</a></small></p>
+				</section>
+
+				<!-- 6-9 -->
+				<section>
+					<section>
+						<h1>Putting it together</h1>
+					</section>
+					<section>
+						<h2>PostgreSQL</h2>
+						<p>Load bulk data download into <a href="http://postgresapp.com/">Postgres.app</a></p>
+						<p>Query MP details (name, photo, riding, party) &amp; associate with federal electoral district identifier</p>
+						<p>Aggregate vote activity in second session of 41st Parliament</p>
+					</section>
+					<section>
+						<h2>QGIS</h2>
+						<p>Simplified geometry of electoral district shapefile to speed up data loading in final map</a></p>
+						<p>Joined queried MP data to shapefile using electoral district identifier</p>
+						<p>Exported as GeoJSON file for mapping with Leaflet</p>
+					</section>
+					<section>
+						<h2>Leaflet</h2>
+						<p><small><a href="http://leafletjs.com/">Leaflet</a> is an open-source JavaScript library<br/>for mobile-friendly interactive maps</small></p>
+						<p>Initialized with <a href="https://cartodb.com/basemaps/">CartoDB basemap</a></p>
+						<p>Loaded GeoJSON data file</p>
+						<p>Electoral districts styled according to party, with pop-ups showing MP details</p>
+						<p>Slider control filters MPs by vote participation</p>
+					</section>
+				</section>
+
+				<!-- 10 -->
+				<section>
+					<h2>Mapping MP Vote Activity</h2>
+					<p><a href="http://cu-library.github.io/mp-activity/">http://cu-library.github.io/mp-activity</a></p>
+				</section>
+
+				<!-- 11 -->
+				<section>
+					<h2>The big picture</h2>
+					<p>It's fun to work with new technologies in a collaborative environment</p>
+					<p>Outreach &amp; collaboration across disciplines</p>
+					<p>Technical skills development</p>
+				</section>
+
+				<!-- 12 -->
+				<section>
+					<h2>Software, etc.</h2>
+					<p><a href="http://postgresapp.com/">Postgres.app</a>, a Mac app for PostgreSQL databases</p>
+					<p><a href="http://www.qgis.org/en/site/">QGIS</a> geographic information system</p>
+					<p><a href="http://leafletjs.com/">Leaflet</a> JavaScript library for online mapmaking</p>
+					<p><a href="https://atom.io/">Atom</a> source code editor</p>
+					<p><a href="https://git-scm.com/">git</a> version control system</p>
+					<p><a href="https://github.com/">Github</a>, a platform for code sharing &amp; and collaboratve development</p>
+				</section>
+
+				<!-- 13 -->
+				<section>
+					<h2>Open Data Websites</h2>
+					<p>Municipal, regional, provincial, and territorial open data websites in Canada</p>
+					<p><a href="http://bartlettr.github.io/opendatawebsites/">http://bartlettr.github.io/opendatawebsites/</a></p>
+				</section>
+
+				<!-- 13 -->
+				<section>
+					<h2>Thanks!</h2>
+					<p>rebecca.bartlett@carleton.ca / jennifer.whitney@carleton.ca</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
